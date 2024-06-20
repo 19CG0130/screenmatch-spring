@@ -23,8 +23,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		Principal principal = new Principal();
-//		principal.muestraElMenu();
+		Principal principal = new Principal();
+		principal.muestraElMenu();
 
 		//se optimizo en la clase Principal
 //		var consumoApi = new ConsumoAPI();
@@ -38,8 +38,9 @@ public class ScreenmatchApplication implements CommandLineRunner {
 //		DatosEpisodio episodios = conversor.obtenerDatos(json, DatosEpisodio.class);
 //		System.out.println(episodios);
 
-		EjemploStreams ejemploStreams = new EjemploStreams();
-		ejemploStreams.muestraEjemplo();
+		//STREAMS EJEMPLO
+//		EjemploStreams ejemploStreams = new EjemploStreams();
+//		ejemploStreams.muestraEjemplo();
 
 	}
 }
