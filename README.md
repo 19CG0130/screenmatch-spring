@@ -1,6 +1,6 @@
 # 🎬 ScreenMatch
 
-Aplicación desarrollada con Spring Framework permitiendo a al usuario buscar y gestionar información sobre películas con ayuda de una API.
+Aplicación desarrollada con Spring Framework permitiendo al usuario buscar y gestionar información sobre películas con ayuda de una API.
 
 ## ✨ Características
 
