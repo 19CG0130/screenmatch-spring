@@ -3,6 +3,7 @@ package com.aluracursos.screenmatch.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 @Entity
@@ -21,7 +22,7 @@ public class Serie {
     private String actores;
     private String sinopsis;
     @OneToMany(mappedBy = "serie")
-    private List<Episodio> episodios;
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(){}
 
@@ -54,6 +55,15 @@ public class Serie {
 
     public void setId(Long id) {
         Id = id;
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
+        this.episodios = episodios;
     }
 
     public String getTitulo() {
