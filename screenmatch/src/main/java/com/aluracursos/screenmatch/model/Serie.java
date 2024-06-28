@@ -1,11 +1,10 @@
 package com.aluracursos.screenmatch.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
+
 @Entity
 @Table(name = "series")
 public class Serie {
@@ -22,14 +21,13 @@ public class Serie {
     private String actores;
     private String sinopsis;
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Episodio> episodios = new ArrayList<>();
+    private List<Episodio> episodios;
 
     public Serie(){}
 
     public Serie(DatosSerie datosSerie){
         this.titulo = datosSerie.titulo();
         this.totalTemporadas = datosSerie.totalTemporadas();
-        //ifElse Mas sofisticado
         this.evaluacion = OptionalDouble.of(Double.valueOf(datosSerie.evaluacion())).orElse(0);
         this.poster = datosSerie.poster();
         this.genero = Categoria.fromString(datosSerie.genero().split(",")[0].trim());
@@ -40,21 +38,14 @@ public class Serie {
     @Override
     public String toString() {
         return  "genero=" + genero +
-                ", titulo='" + titulo + '\'' +
+                "titulo='" + titulo + '\'' +
                 ", totalTemporadas=" + totalTemporadas +
                 ", evaluacion=" + evaluacion +
                 ", poster='" + poster + '\'' +
                 ", actores='" + actores + '\'' +
                 ", sinopsis='" + sinopsis + '\'' +
                 ", episodios='" + episodios + '\'';
-    }
 
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
     }
 
     public List<Episodio> getEpisodios() {
@@ -64,6 +55,14 @@ public class Serie {
     public void setEpisodios(List<Episodio> episodios) {
         episodios.forEach(e -> e.setSerie(this));
         this.episodios = episodios;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getTitulo() {
