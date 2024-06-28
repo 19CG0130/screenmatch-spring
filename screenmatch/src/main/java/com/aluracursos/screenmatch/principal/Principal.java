@@ -15,8 +15,8 @@ public class Principal {
     private final String API_KEY = "&apikey=4fc7c187";
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosSerie> datosSeries = new ArrayList<>();
+    private List<Serie> series = new ArrayList<>();
     private SerieRepository repositorio;
-    private List<Serie> series;
 
     public Principal(SerieRepository repository) {
         this.repositorio = repository;
@@ -32,7 +32,8 @@ public class Principal {
                     4 - Buscar series por titulo
                     5 - Top 5 mejores series
                     6 - Buscar series por categoria
-                                  
+                    7 - Filtrar series
+                    
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -57,6 +58,9 @@ public class Principal {
                     break;
                 case 6:
                     buscarSeriesPorCategoria();
+                    break;
+                case 7:
+                    filtrarSeriesPorTemporadaYEvaluacion();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -89,7 +93,7 @@ public class Principal {
             var serieEncontrada = serie.get();
             List<DatosTemporadas> temporadas = new ArrayList<>();
 
-            for (int i = 1; i <= serieEncontrada.getTotalDeTemporadas(); i++) {
+            for (int i = 1; i <= serieEncontrada.getTotalTemporadas(); i++) {
                 var json = consumoApi.obtenerDatos(URL_BASE + serieEncontrada.getTitulo().replace(" ", "+") + "&season=" + i + API_KEY);
                 DatosTemporadas datosTemporada = conversor.obtenerDatos(json, DatosTemporadas.class);
                 temporadas.add(datosTemporada);
@@ -143,5 +147,18 @@ public class Principal {
         List<Serie> seriePorCategoria = repositorio.findByGenero(categoria);
         System.out.println("Las series de la categoria " + genero);
         seriePorCategoria.forEach(System.out::println);
+    }
+
+    public void filtrarSeriesPorTemporadaYEvaluacion(){
+        System.out.println("¿Filtrar séries con cuántas temporadas? ");
+        var totalTemporadas = teclado.nextInt();
+        teclado.nextLine();
+        System.out.println("¿Com evaluación apartir de cuál valor? ");
+        var evaluacion = teclado.nextDouble();
+        teclado.nextLine();
+        List<Serie> filtroSeries = repositorio.seriesPorTemporadaYEvaluacion(totalTemporadas,evaluacion);
+        System.out.println("*** Series filtradas ***");
+        filtroSeries.forEach(s ->
+                System.out.println(s.getTitulo() + "  - evaluacion: " + s.getEvaluacion()));
     }
 }

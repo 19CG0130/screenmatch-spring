@@ -32,7 +32,7 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 		//se optimizo en la clase Principal
 //		var consumoApi = new ConsumoAPI();
-//		var json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=breaking+bad&apikey=a047acaa");
+//		var json = consumoApi.obtenerDatos("h2ttps://www.omdbapi.com/?t=breaking+bad&apikey=a047acaa");
 //		System.out.println(json);
 //		ConvierteDatos conversor = new ConvierteDatos();
 //		var datos = conversor.obtenerDatos(json, DatosSerie.class);
